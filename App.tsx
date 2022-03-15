@@ -1,20 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
+import { Provider } from "react-redux";
+import { store, persistor } from "./app/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { Timer } from "./features/timer/Timer";
+import { ThemeProvider } from "./theme/ThemeContext";
+import { makeStyles } from "./theme/makeStyles";
+import { Theme } from "./theme/theme";
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider>
+          <Container>
+            <StatusBar style="auto" />
+            <Timer />
+          </Container>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
+};
+
+export default App;
+
+interface Props {
+  children?: React.ReactNode;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const Container = (props: Props) => {
+  const styles = useStyles();
+
+  return <SafeAreaView style={styles.container}>{props.children}</SafeAreaView>;
+};
+
+const useStyles = makeStyles((theme: Theme) => {
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: theme.color.surface,
+    },
+  });
+  return styles;
 });
