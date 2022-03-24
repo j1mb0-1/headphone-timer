@@ -46,10 +46,7 @@ const useStyles = makeStyles((theme: Theme) => {
       borderWidth: 1,
       borderColor: color.onSurface,
       borderRadius: spacing.radius,
-      paddingLeft: spacing.double,
-      paddingRight: spacing.double,
-      paddingTop: spacing.double,
-      paddingBottom: spacing.double,
+      padding: spacing.double,
     },
     buttonStylePressed: {
       borderColor: color.onSurface,

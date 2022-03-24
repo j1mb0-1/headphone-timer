@@ -16,7 +16,6 @@ export interface SpacingTheme {
 }
 
 export interface Theme {
-  id: string;
   color: ColorTheme;
   spacing: SpacingTheme;
 }

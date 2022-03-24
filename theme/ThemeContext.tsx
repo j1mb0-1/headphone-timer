@@ -19,6 +19,7 @@ interface Props {
 
 export const ThemeProvider = React.memo<Props>((props: Props) => {
   const colorScheme = useColorScheme();
+
   const [theme, setTheme] = React.useState<Theme>(
     colorScheme === "dark" ? defaultDarkTheme : defaultLightTheme
   );
@@ -31,7 +32,7 @@ export const ThemeProvider = React.memo<Props>((props: Props) => {
     }
   }, [colorScheme]);
 
-  const MemoizedValue = React.useMemo(() => {
+  const memoizedValue = React.useMemo(() => {
     const value: ProvidedValue = {
       theme,
     };
@@ -39,7 +40,7 @@ export const ThemeProvider = React.memo<Props>((props: Props) => {
   }, [theme]);
 
   return (
-    <Context.Provider value={MemoizedValue}>{props.children}</Context.Provider>
+    <Context.Provider value={memoizedValue}>{props.children}</Context.Provider>
   );
 });
 

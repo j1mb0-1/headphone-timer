@@ -1,6 +1,7 @@
-import { ColorTheme, SpacingTheme, Theme } from "./theme";
+import { defaultSpacingTheme } from "./spacingTheme";
+import { ColorTheme, Theme } from "./theme";
 
-const defaultDarkColorTheme: ColorTheme = {
+const darkColorTheme: ColorTheme = {
   primary: "#03a9f4",
   onPrimary: "#000000",
   surface: "#000000",
@@ -9,14 +10,7 @@ const defaultDarkColorTheme: ColorTheme = {
   onBackground: "#ffffff",
 };
 
-const defaultDarkSpacingTheme: SpacingTheme = {
-  base: 8,
-  double: 16,
-  radius: 8,
-};
-
 export const defaultDarkTheme: Theme = {
-  id: "default-dark",
-  color: defaultDarkColorTheme,
-  spacing: defaultDarkSpacingTheme,
+  color: darkColorTheme,
+  spacing: defaultSpacingTheme,
 };

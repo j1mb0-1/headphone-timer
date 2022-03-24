@@ -1,6 +1,7 @@
-import { ColorTheme, SpacingTheme, Theme } from "./theme";
+import { defaultSpacingTheme } from "./spacingTheme";
+import { ColorTheme, Theme } from "./theme";
 
-const defaultLightColorTheme: ColorTheme = {
+const lightColorTheme: ColorTheme = {
   primary: "#03a9f4",
   onPrimary: "#ffffff",
   surface: "#ffffff",
@@ -9,14 +10,7 @@ const defaultLightColorTheme: ColorTheme = {
   onBackground: "#000000",
 };
 
-const defaultLightSpacingTheme: SpacingTheme = {
-  base: 8,
-  double: 16,
-  radius: 8,
-};
-
 export const defaultLightTheme: Theme = {
-  id: "default-light",
-  color: defaultLightColorTheme,
-  spacing: defaultLightSpacingTheme,
+  color: lightColorTheme,
+  spacing: defaultSpacingTheme,
 };
