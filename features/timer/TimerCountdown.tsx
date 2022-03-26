@@ -4,6 +4,12 @@ import { selectExpiresTimeMs } from "./timerSlice";
 import { View, Text, StyleSheet } from "react-native";
 import { Theme } from "../../theme/theme";
 import { makeStyles } from "../../theme/makeStyles";
+import {
+  getDifferenceFromNow,
+  getHourUnitFromDuration,
+  getMinuteUnitFromDuration,
+  getSecondUnitFromDuration,
+} from "./timer_utils";
 
 const useStyles = makeStyles((theme: Theme) => {
   const { spacing } = theme;
@@ -31,10 +37,14 @@ export const TimerCountdown = () => {
 
   const expiresTimeMs: number | undefined = useAppSelector(selectExpiresTimeMs);
 
-  const [timeLeftMs, setTimeLeftMs] = useState(getTimeLeft(expiresTimeMs));
+  const [timeLeftMs, setTimeLeftMs] = useState(
+    expiresTimeMs ? getDifferenceFromNow(expiresTimeMs) : undefined
+  );
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeftMs(getTimeLeft(expiresTimeMs));
+      setTimeLeftMs(
+        expiresTimeMs ? getDifferenceFromNow(expiresTimeMs) : undefined
+      );
     }, 1000);
     return () => clearTimeout(timer);
   });
@@ -42,9 +52,9 @@ export const TimerCountdown = () => {
   let timeLeftDisplay: string | undefined;
 
   if (timeLeftMs) {
-    const hoursLeft = Math.floor((timeLeftMs / (1000 * 60 * 60)) % 24);
-    const minutesLeft = Math.floor((timeLeftMs / (1000 * 60)) % 24);
-    const secondsLeft = Math.floor((timeLeftMs / 1000) % 60);
+    const hoursLeft = getHourUnitFromDuration(timeLeftMs);
+    const minutesLeft = getMinuteUnitFromDuration(timeLeftMs);
+    const secondsLeft = getSecondUnitFromDuration(timeLeftMs);
 
     timeLeftDisplay = `${hoursLeft}:${
       minutesLeft < 10 ? `0${minutesLeft}` : minutesLeft
@@ -60,14 +70,4 @@ export const TimerCountdown = () => {
       </Text>
     </View>
   );
-};
-
-const getTimeLeft = (expiresTimeMs: number | undefined): number | undefined => {
-  let timeLeft = expiresTimeMs
-    ? expiresTimeMs - new Date().getTime()
-    : undefined;
-  if (timeLeft && timeLeft < 1) {
-    timeLeft = undefined;
-  }
-  return timeLeft;
 };

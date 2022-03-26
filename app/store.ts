@@ -35,3 +35,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export type ThunkStatus = "idle" | "loading" | "failed";

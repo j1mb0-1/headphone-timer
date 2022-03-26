@@ -5,9 +5,9 @@ import {
   selectHours,
   selectMinutes,
   selectSeconds,
-  setHours,
-  setMinutes,
-  setSeconds,
+  hoursPicked,
+  minutesPicked,
+  secondsPicked,
 } from "./timerSlice";
 import { View, Text, StyleSheet } from "react-native";
 import i18n from "../../i18n/i18n";
@@ -52,7 +52,7 @@ export const TimerPicker = () => {
         height={200}
         items={hoursSwipePickerItems}
         onChange={({ item }: { index: number; item: SwipePickerItem }) => {
-          dispatch(setHours(item.value));
+          dispatch(hoursPicked({ hours: item.value }));
         }}
       />
       <Text style={styles.unitText}>{i18n.t("timerHours")}</Text>
@@ -63,7 +63,7 @@ export const TimerPicker = () => {
         height={200}
         items={minutesSwipePickerItems}
         onChange={({ item }: { index: number; item: SwipePickerItem }) => {
-          dispatch(setMinutes(item.value));
+          dispatch(minutesPicked({ minutes: item.value }));
         }}
       />
       <Text style={styles.unitText}>{i18n.t("timerMinutes")}</Text>
@@ -74,7 +74,7 @@ export const TimerPicker = () => {
         height={200}
         items={secondsSwipePickerItems}
         onChange={({ item }: { index: number; item: SwipePickerItem }) => {
-          dispatch(setSeconds(item.value));
+          dispatch(secondsPicked({ seconds: item.value }));
         }}
       />
       <Text style={styles.unitText}>{i18n.t("timerSeconds")}</Text>
